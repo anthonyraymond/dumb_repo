@@ -26,7 +26,8 @@ cache:
 jobs:
   include:
     - stage: Test stage
+      before_script: echo "coucou"
       script: echo "test 1"
       script: echo "test 2"
     - stage: Package
-      script: "package this shit"
+      script: echo "package this shit"
