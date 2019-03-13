@@ -26,9 +26,9 @@ cache:
 stages:
   - test
   - build_artifact
-  - github_release
+  - name: github_release
     if: tag IS present
-  - docker_release
+  - name: docker_release
     if: tag IS present
 
 test:
