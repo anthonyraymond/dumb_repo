@@ -3,7 +3,7 @@ FROM openjdk:8u181-jre AS build
 
 
 RUN apt-get update \
-    && apt-get install -y curl \
+    && apt-get install -y git \
     && git clone https://github.com/anthonyraymond/joal.git --branch "v$JOAL_VERSION" --depth=1 \
     && cd joal \
     && mvn package -DskipTests=true \
