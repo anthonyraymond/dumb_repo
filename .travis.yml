@@ -31,3 +31,5 @@ jobs:
       script: echo "test 2"
     - stage: Package
       script: echo "package this shit"
+    - stage: Package
+      script: echo "package this shit"
