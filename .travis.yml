@@ -23,23 +23,10 @@ cache:
   - "$HOME/.cache"
   - ~/.m2
 
-stages:
-  - test
-  - build_artifact
-  - name: github_release
-    if: tag IS present
-  - name: docker_release
-    if: tag IS present
-
-test:
-  - echo "test"
-
-build_artifact:
-  - echo "build_artifact"
-
-github_release:
-  - echo "github_release"
-
-docker_release:
-  - echo "docker_release"
-
+jobs:
+  include:
+    - stage: Test stage
+      - script: echo "test 1"
+      - script: echo "test 2"
+    - stage: Package
+      script: "package this shit"
