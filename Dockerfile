@@ -8,14 +8,14 @@ RUN apt-get update \
     && git clone https://github.com/anthonyraymond/joal.git --branch "v$JOAL_VERSION" --depth=1 \
     && cd joal \
     && mvn package -DskipTests=true \
-    && mkdir /joal \
-    && mv "target/jack-of-all-trades-$JOAL_VERSION.jar" /joal/
+    && mkdir /artifact \
+    && mv "target/jack-of-all-trades-$JOAL_VERSION.jar" /artifact/
 
 
 # Actual joal image with jre only
 FROM openjdk:8u181-jre
 
-COPY --from=build /joal/joal.jar /joal/joal.jar
+COPY --from=build /artifact/joal.jar /joal/joal.jar
 
 VOLUME /data
 
