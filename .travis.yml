@@ -27,5 +27,19 @@ stages:
   - test
   - build_artifact
   - github_release
+    if: tag IS present
   - docker_release
+    if: tag IS present
+
+test:
+  - echo "test"
+
+build_artifact:
+  - echo "build_artifact"
+
+github_release:
+  - echo "github_release"
+
+docker_release:
+  - echo "docker_release"
 
