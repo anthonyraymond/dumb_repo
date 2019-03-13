@@ -27,12 +27,12 @@ cache:
 
 jobs:
   include:
-    - stage: Test stage
-      before_script: echo "coucou"
-      script: echo "test 1"
-      script: echo "test 2"
+    #- stage: Test stage
+    #  before_script: echo "coucou"
+    #  script: echo "test 1"
+    #  script: echo "test 2"
 
-    - stage: docker-deploy
+    - stage: Docker release
       # install binfmt to allow arm build on x86 (see https://dev.to/zeerorg/build-multi-arch-docker-images-on-travis-5428)
       before_install:
         - sudo docker run --privileged linuxkit/binfmt:v0.6
@@ -41,4 +41,4 @@ jobs:
         - export BUILDKIT_HOST=tcp://0.0.0.0:1234
       # skill install step
       install: true
-      script: JOAL_VERSION="" && PLATFORMS="linux/amd64,linux/arm,linux/arm64,linux/arm/v6" && buildctl build --frontend dockerfile.v0 --local dockerfile=. --local context=. --frontend-opt platform=${PLATFORMS} --frontend-opt filename=./Dockerfile --exporter image --exporter-opt name=docker.io/anthonyraymond/dumb_repository:${JOAL_VERSION} --exporter-opt push=true
+      script: buildctl build --frontend dockerfile.v0 --local dockerfile=. --local context=. --frontend-opt platform=linux/amd64,linux/arm,linux/arm64,linux/arm/v6 --frontend-opt filename=./Dockerfile --exporter image --exporter-opt name=docker.io/anthonyraymond/dumb_repository:2.1.13 --exporter-opt push=true
