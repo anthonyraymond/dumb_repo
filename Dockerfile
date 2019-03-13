@@ -1,5 +1,5 @@
 # Builder image with jdk
-FROM openjdk:8u181-jre AS build
+FROM maven:3.6-jdk-8 AS build
 
 
 RUN apt-get update \
