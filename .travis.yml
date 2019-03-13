@@ -1,0 +1,31 @@
+# sudo for docker
+sudo: true
+language: java
+jdk:
+ - openjdk10
+
+services:
+  - docker
+
+# force update docker-ce since the manifest is still experimental
+addons:
+  apt:
+    packages:
+      - docker-ce
+
+# Only clone the most recent commit.
+git:
+  depth: 1
+
+cache:
+  apt: true
+  directories:
+  - "$HOME/.cache"
+  - ~/.m2
+
+stages:
+  - test
+  - build_artifact
+  - github_release
+  - docker_release
+
