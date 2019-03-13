@@ -9,7 +9,7 @@ RUN apt-get update \
     && cd joal \
     && mvn package -DskipTests=true \
     && mkdir /artifact \
-    && mv "target/jack-of-all-trades-$JOAL_VERSION.jar" /artifact/
+    && mv "/joal/target/jack-of-all-trades/$JOAL_VERSION.jar" /artifact/joal.jar
 
 
 # Actual joal image with jre only
