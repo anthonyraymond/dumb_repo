@@ -1,5 +1,5 @@
 # Builder image with jdk
-FROM penjdk:8u181-jre AS build
+FROM openjdk:8u181-jre AS build
 
 
 RUN JOAL_VERSION="2.1.13" \
