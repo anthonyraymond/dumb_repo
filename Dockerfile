@@ -1,5 +1,5 @@
 # Builder image with jdk
-FROM maven:3.6-jdk-8 AS build
+FROM --platform=$BUILDPLATFORM maven:3.6-jdk-8 AS build
 
 
 RUN apt-get update \
