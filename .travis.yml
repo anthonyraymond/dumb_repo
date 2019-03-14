@@ -27,10 +27,10 @@ cache:
 
 jobs:
   include:
-    #- stage: Test stage
-    #  before_script: echo "coucou"
-    #  script: echo "test 1"
-    #  script: echo "test 2"
+    - stage: Test stage
+      before_script: echo "coucou"
+      script: echo "test 1"
+      script: echo "test 2"
 
     - stage: Docker release
       if: tag IS present
