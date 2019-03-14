@@ -7,7 +7,7 @@ RUN apt-get update \
     && JOAL_VERSION="2.1.13" \
     && git clone https://github.com/anthonyraymond/joal.git --branch "v$JOAL_VERSION" --depth=1 \
     && cd joal \
-    && mvn package -DskipTests=true \
+    && mvn --batch-mode --quiet package -DskipTests=true \
     && mkdir /artifact \
     && mv "/joal/target/jack-of-all-trades-$JOAL_VERSION.jar" /artifact/joal.jar
 

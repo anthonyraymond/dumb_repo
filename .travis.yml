@@ -33,6 +33,7 @@ jobs:
     #  script: echo "test 2"
 
     - stage: Docker release
+      if: tag IS present
       # install binfmt to allow arm build on x86 (see https://dev.to/zeerorg/build-multi-arch-docker-images-on-travis-5428)
       before_install:
         - sudo docker run --privileged linuxkit/binfmt:v0.6

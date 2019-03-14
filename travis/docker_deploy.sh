@@ -25,9 +25,11 @@ platforms=${platforms::-1}
 buildctl build --frontend dockerfile.v0 \
       --local dockerfile=. \
       --local context=. \
-      --output type=image,name=docker.io/$REPO_NAME:$TRAVIS_TAG,push=true \
-      --opt platform=$platforms \
-      --opt filename=./Dockerfile
+      --exporter image \
+      --exporter-opt name=docker.io/$REPO_NAME:$TRAVIS_TAG \
+      --exporter-opt push=true \
+      --frontend-opt platform=$platforms \
+      --frontend-opt filename=./Dockerfile
 
 
 # Push image for every arch with arch prefix in tag
@@ -37,9 +39,11 @@ do
   buildctl build --frontend dockerfile.v0 \
       --local dockerfile=. \
       --local context=. \
-      --output type=image,name=docker.io/$REPO_NAME:$TRAVIS_TAG-$arch,push=true \
-      --opt platform=linux/$arch \
-      --opt filename=./Dockerfile &
+      --exporter image \
+      --exporter-opt name=docker.io/$REPO_NAME:$TRAVIS_TAG-$arch \
+      --exporter-opt push=true \
+      --frontend-opt platform=linux/$arch \
+      --frontend-opt filename=./Dockerfile &
 done
 
 wait
