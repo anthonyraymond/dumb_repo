@@ -2,16 +2,14 @@
 
 # Inspired from : https://github.com/zeerorg/cron-connector/blob/master/travis/deploy.sh
 
+
 REPO_NAME="anthonyraymond/dumb_repository"
 
 # Login into docker
-docker login --username "$DOCKER_USERNAME" --password "$DOCKERHUB_PASSWORD"
+docker login --username anthonyraymond --password "$DOCKERHUB_PASSWORD"
 
 
---frontend-opt filename=./Dockerfile --exporter image --exporter-opt name=docker.io/anthonyraymond/dumb_repository:2.1.13 --exporter-opt push=true --progress=plain
-
-architectures="arm arm64 amd64"
-images=""
+architectures="amd64 arm arm64"
 platforms=""
 
 for arch in $architectures
@@ -27,11 +25,10 @@ platforms=${platforms::-1}
 buildctl build --frontend dockerfile.v0 \
       --local dockerfile=. \
       --local context=. \
-      --exporter image \
-      --exporter-opt name=docker.io/$REPO_NAME:$TRAVIS_TAG \
-      --exporter-opt push=true \
-      --frontend-opt platform=$platforms \
-      --frontend-opt filename=./Dockerfile
+      --output type=image,name=docker.io/$REPO_NAME:$TRAVIS_TAG,push=true \
+      --opt platform=$platforms \
+      --opt filename=./Dockerfile
+
 
 # Push image for every arch with arch prefix in tag
 for arch in $architectures
@@ -40,11 +37,9 @@ do
   buildctl build --frontend dockerfile.v0 \
       --local dockerfile=. \
       --local context=. \
-      --exporter image \
-      --exporter-opt name=docker.io/$REPO_NAME:$TRAVIS_TAG-$arch \
-      --exporter-opt push=true \
-      --frontend-opt platform=linux/$arch \
-      --frontend-opt filename=./Dockerfile &
+      --output type=image,name=docker.io/$REPO_NAME:$TRAVIS_TAG-$arch,push=true \
+      --opt platform=linux/$arch \
+      --opt filename=./Dockerfile &
 done
 
 wait
